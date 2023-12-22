@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState } from "react";
 
 import ExpenseDetails from "./ExpenseDetails";
 import ExpenseDate from "./ExpenseDate";
@@ -6,24 +6,28 @@ import Card from "../UI/Card";
 import "./ExpenseItem.css"
 
 const ExpenseItem = (props) => {
-    const deleteExpenseHandler = () => {
-        // console.log(`${props.id}`);
-        const cardEle = document.getElementById(`${props.id}`);
-        if (cardEle) {
-            cardEle.remove();
-        } else {
-            console.log(`Element with ID ${props.id} not found.`);
-        }
+    const [title,setTitle] = useState(props.title)
+
+    const clickHandler = () => {
+        setTitle("Updated!!!")
+        console.log(title);
+    }
+    const [amount,setAmount] = useState(props.amount)
+
+    const clickExpenseHandler = () => {
+        setAmount(100)
+        console.log(amount);
     }
     return (
-        <Card id={props.id} className="expense-item">
+        <Card  className="expense-item">
             <ExpenseDate date={props.date} />
             <ExpenseDetails
-                title={props.title}
-                amount={props.amount}
+                title={title}
+                amount={amount}
                 location={props.location}
             />
-            <button onClick={deleteExpenseHandler}>Delete Expense</button>
+            <button onClick={clickHandler}>Change Title</button>
+            <button onClick={clickExpenseHandler}>Change Expense</button>
         </Card>
     )
 }
